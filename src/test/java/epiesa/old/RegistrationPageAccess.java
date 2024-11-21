@@ -1,6 +1,6 @@
-package epiesa;
+package epiesa.old;
 
-import epiesa.utils.EpiesaUtils;
+import epiesa.old.utils.EpiesaUtils;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;

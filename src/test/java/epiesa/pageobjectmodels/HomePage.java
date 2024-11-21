@@ -1,42 +1,46 @@
 package epiesa.pageobjectmodels;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-public class HomePage {
+public class HomePage extends BasePage {
 
-    // 1. driver
-    WebDriver driver;
+    public static final String PATH = "";
 
     // 2. constructorul paginii
     public HomePage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
+        PageFactory.initElements(driver, this);
     }
 
-    // 3. selectori / elemente (daca folosesc Page Factory)
-    By myAccountDropDown = By.cssSelector(".header-top .header-right .btn-group .contul-meu");
-    By loginAndMyAccountHeader = By.cssSelector(".header-top .header-right .btn-group .dropdown-menu li a[href=\"/autentificare-epiesa/\"]");
-    By usernameInput = By.cssSelector("[name=\"login_utilizator\"]");
+    // 3. elemente (folosesc Page Factory)
+    @FindBy(css = ".contul-meu")
+    WebElement myAccountDropDown;
 
+    @FindBy(css = ".contul-meu+.dropdown-menu [href=\"/autentificare-epiesa/\"]")
+    WebElement loginAndMyAccountHeader;
+
+    @FindBy(css = "[class=\"contul-meu-right\"] a")
+    WebElement myAccountEmail;
+
+//    todo move to my account module
     // 4. metode de actiune
     public void hoverOnMyAccount() {
-        WebElement myAccountDropDownElement = driver.findElement(myAccountDropDown);
         Actions action = new Actions(driver);
-        action.moveToElement(myAccountDropDownElement).perform();
+        action.moveToElement(myAccountDropDown).perform();
     }
 
-
-    public void clickOnMyAccount(){
-        WebElement loginMyAccountHeaderFieldElement = driver.findElement(loginAndMyAccountHeader);
-        loginMyAccountHeaderFieldElement.click();
-    }
-
-    public void enterUserName(String emailadress){
-        WebElement userNameElement = driver.findElement(usernameInput);
-        userNameElement.sendKeys(emailadress);
+    public void clickOnLogin(){
+        loginAndMyAccountHeader.click();
     }
 
     // 5. metode de verificare
+    public boolean verifyLoginAndMyAccountHeaderIsDisplayed() {
+        hoverOnMyAccount();
+        waitUntilElementVisible(loginAndMyAccountHeader);
+        return loginAndMyAccountHeader.isDisplayed();
+    }
 }

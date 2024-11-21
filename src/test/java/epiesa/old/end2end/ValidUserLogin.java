@@ -1,13 +1,12 @@
-package epiesa.tests.end2end;
+package epiesa.old.end2end;
 
-import epiesa.pageobjectmodels.HomePage;
-import epiesa.utils.BaseTestClass;
+import epiesa.old.pageobjectmodels.HomePage;
+import epiesa.old.utils.BaseTestClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 import java.time.Duration;
 
